@@ -1,2 +1,2 @@
-# Awesome-traffic-intersection-and-connected-autonomous-vehicles
+# Awesome-intelligent-intersection
  survey
