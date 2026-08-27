@@ -3,6 +3,7 @@
 <p align="center">
   <a href="docs/references.md"><img alt="Cited works" src="https://img.shields.io/badge/cited_works-261-22577A"></a>
   <a href="docs/papers.md"><img alt="Core papers" src="https://img.shields.io/badge/core_papers-46-6C63FF"></a>
+  <a href="docs/code.md"><img alt="Code repositories" src="https://img.shields.io/badge/code_repositories-74-3A7D44"></a>
   <a href="docs/datasets.md"><img alt="Datasets" src="https://img.shields.io/badge/datasets-44-2A9D8F"></a>
   <a href="docs/benchmarks.md"><img alt="Benchmarks" src="https://img.shields.io/badge/benchmarks-13-E9C46A"></a>
   <a href="docs/simulators.md"><img alt="Simulators" src="https://img.shields.io/badge/simulators-19-F4A261"></a>
@@ -28,6 +29,7 @@ The collection covers signalized, non-signalized, hybrid signal-CAV, and signal-
 | Topic | What it contains |
 |---|---|
 | [Complete citation catalog](docs/references.md) | All 261 distinct works represented by 266 active citation keys, categorized by role and survey section with source links |
+| [Code and implementation index](docs/code.md) | 74 cited works with verified official, author-released, or clearly labeled third-party code links |
 | [Core comparison papers](docs/papers.md) | 46 deeply coded papers with operating context, traffic composition, method family, evidence level, and verified code status |
 | [Signalized intersections](docs/signalized-intersections.md) | Signal timing, estimation, signal-trajectory coordination, learning, multimodal and priority-aware control |
 | [Non-signalized intersections and AIM](docs/non-signalized-and-aim.md) | Gap acceptance, reservation AIM, distributed control, mixed traffic, negotiation, learning |
@@ -52,7 +54,7 @@ This representation prevents a full-CAV simulation result from being interpreted
 
 ## Implementation-aware paper records
 
-Code links are checked against the paper, author, laboratory, or project repository. A dash means that no public implementation was located as of the record's `last_verified` date; it does **not** prove that code does not exist.
+The [full code and implementation index](docs/code.md) now contains **74 cited works with verified repositories**, grouped into method papers, datasets, benchmarks, and simulation tools. Code links are checked against the paper, author, laboratory, project page, or repository README. A dash in the complete catalog means that no public implementation was located as of the record's `last_verified` date; it does **not** prove that code does not exist.
 
 | Paper | Context | Method | Code |
 |---|---|---|---|
@@ -62,8 +64,11 @@ Code links are checked against the paper, author, laboratory, or project reposit
 | [CoLLMLight](https://openreview.net/forum?id=KeJqoEVOeY) | Signalized network | Foundation-model-assisted | [Official](https://github.com/usail-hkust/CoLLMLight) |
 | [PromptGAT](https://doi.org/10.1609/aaai.v38i1.27758) | Signalized | Foundation-model-assisted transfer | [Official](https://github.com/DaRL-LibSignal/PromptGAT) |
 | [TrafficGPT](https://doi.org/10.1016/j.tranpol.2024.03.006) | Cross-cutting | Tool orchestration | [Official](https://github.com/lijlansg/TrafficGPT) |
+| [IntelliLight](https://doi.org/10.1145/3219819.3220096) | Signalized | Learning | [Author-released](https://github.com/wingsweihua/IntelliLight) |
+| [PAIM](https://doi.org/10.1109/ITSC.2018.8569782) | Non-signalized | Reservation/platooning | [Author-released](https://github.com/ashkanbashiri/PAIM) |
+| [VLMLight](https://mlanthology.org/neurips/2025/wang2025neurips-vlmlight/) | Signalized | Vision-language meta-control | [Official](https://github.com/Traffic-Alpha/VLMLight) |
 
-See the [core comparison-paper index](docs/papers.md) for detailed D1-D3 records and the [complete citation catalog](docs/references.md) for every work cited in the manuscript.
+See the [full implementation table](docs/code.md), the [core comparison-paper index](docs/papers.md) for detailed D1-D3 records, and the [complete citation catalog](docs/references.md) for every work cited in the manuscript.
 
 ## Resource snapshot
 
@@ -71,6 +76,7 @@ The repository distinguishes complete citation coverage from the smaller, deeply
 
 - **261** distinct cited works represented by **266** active citation keys, with duplicate BibTeX aliases consolidated and retained;
 - **46** core comparison papers across signalized, non-signalized/AIM, mixed-traffic, and foundation-model-assisted methods;
+- **74** cited works with verified code links: 63 official/project, 10 author-released, and 1 clearly labeled third-party repository;
 - **44** operational, trajectory, interaction, motion-planning, and cooperative-perception datasets;
 - **13** formal benchmarks and benchmark-supporting scenario resources;
 - **19** traffic, automated-driving, V2X, and multidomain simulation platforms;

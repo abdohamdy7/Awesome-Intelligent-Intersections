@@ -1,6 +1,6 @@
 # Complete citation catalog
 
-[Back to the repository overview](../README.md) · [Core comparison papers](papers.md)
+[Back to the repository overview](../README.md) · [Code and implementation index](code.md) · [Core comparison papers](papers.md)
 
 This catalog contains all **261 distinct works** represented by the current survey manuscript's **266 active citation keys**. Citation aliases that point to the same work are consolidated in one row and retained in `citation_keys`. Every title links to a DOI, publisher, official standard/report, institutional repository, or project page. The smaller core-paper index remains a curated subset with detailed D1-D3 method and evidence fields.
 
@@ -37,6 +37,7 @@ References may appear on more than one topic page when the manuscript cites them
 
 - **261/261 work links** are direct links; no generic search-result fallbacks are used.
 - **46 core papers** retain manually verified implementation status.
+- **74 cited works** have a verified implementation, devkit, benchmark, or simulator repository.
 - `Not checked` means implementation discovery has not yet been completed for that non-core paper; it is not a claim that code is unavailable.
 
 Machine-readable source: [`data/references.csv`](../data/references.csv).
