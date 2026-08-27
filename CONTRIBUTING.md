@@ -5,7 +5,7 @@ Thank you for improving Awesome Intelligent Intersections. Contributions may add
 ## Before opening a pull request
 
 1. Confirm that the resource directly supports intersection-level planning, control, coordination, evaluation, or deployment.
-2. Add or edit the appropriate CSV file in [`data/`](data/); do not edit generated index pages by hand.
+2. Add or edit the appropriate CSV file in [`data/`](data/); do not edit generated index pages by hand. Every newly cited manuscript reference should also be represented in `references.csv`.
 3. Use the existing vocabulary and a stable kebab-case `id`.
 4. Set `last_verified` to the date on which you checked the links and metadata.
 5. Run:
@@ -30,6 +30,8 @@ Use `official`, `author-released`, or `third-party` accordingly. If none can be 
 ## Required paper fields
 
 Provide the title, year, venue, intersection context, traffic context, method family, coordination architecture, evidence level, stable paper URL when available, BibTeX key, and verification date. A BibTeX key should correspond to the survey bibliography or be added to it in a coordinated paper update.
+
+The complete catalog uses `not-checked` when implementation discovery has not yet been performed and `not-applicable` for standards, datasets, reports, and other records for which a code repository is not expected. These labels must not be silently converted to `not-found`.
 
 ## Evidence and claims
 

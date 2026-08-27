@@ -1,0 +1,37 @@
+# Evaluation-metric references
+
+[Complete citation catalog](../references.md) · [Repository overview](../../README.md)
+
+Citations supporting the evaluation metrics, constraints, and reporting guidance. This page contains **27** distinct cited works; titles link to the paper or primary source.
+
+| Reference | Year | Venue/source | Role | Survey sections | Code |
+|---|---|---|---|---|---|
+| [Autonomous and semiautonomous intersection management: A survey](https://doi.org/10.1109/MITS.2020.3014074) | 2021 | IEEE Intelligent Transportation Systems Magazine | Survey/review | Signalized intersections, Non-signalized intersections and AIM, Mixed traffic and MPR, Evaluation metrics, Deployment evidence, Operating context, Related work, Taxonomy, Introduction, Front matter | — |
+| [A comprehensive survey on cooperative intersection management for heterogeneous connected vehicles](https://doi.org/10.1109/ACCESS.2022.3142450) | 2022 | IEEE Access | Survey/review | Signalized intersections, Non-signalized intersections and AIM, Evaluation metrics, Operating context, Related work, Taxonomy, Introduction | — |
+| [Highway Capacity Manual 7th Edition: A Guide for Multimodal Mobility Analysis](https://doi.org/10.17226/26432) | 2022 | The National Academies Press | Standard/guidance | Signalized intersections, Non-signalized intersections and AIM, Evaluation metrics, Operating context | — |
+| [A multiagent approach to autonomous intersection management](https://doi.org/10.1613/jair.2502) | 2008 | Journal of Artificial Intelligence Research | Method paper | Non-signalized intersections and AIM, Evaluation metrics, Operating context | Not checked |
+| [Spatiotemporal intersection control in a connected and automated vehicle environment](https://doi.org/10.1016/j.trc.2018.02.001) | 2018 | Transportation Research Part C: Emerging Technologies | Method paper | Signalized intersections, Evaluation metrics | Not found |
+| [Traffic signal timing and trajectory optimization in a mixed autonomy traffic stream](https://doi.org/10.1109/TITS.2021.3058193) | 2022 | IEEE Transactions on Intelligent Transportation Systems | Method paper | Signalized intersections, Evaluation metrics | Not found |
+| [Traffic Signal Preemption for Emergency Vehicles: A Cross-Cutting Study: Putting the “First” in “First Response”](https://rosap.ntl.bts.gov/view/dot/3655) | 2006 | U.S. Department of Transportation | Method paper | Signalized intersections, Evaluation metrics | Not checked |
+| [Control strategies of traffic signal timing transition for emergency vehicle preemption](https://doi.org/10.1016/j.trc.2012.04.004) | 2012 | Transportation Research Part C: Emerging Technologies | Method paper | Signalized intersections, Non-signalized intersections and AIM, Evaluation metrics | Not found |
+| [Impact of emergency vehicle preemption on signalized corridor operation: An evaluation](https://doi.org/10.3141/1727-01) | 2000 | Transportation Research Record: Journal of the Transportation Research Board | Method paper | Signalized intersections, Non-signalized intersections and AIM, Evaluation metrics | Not checked |
+| [A survey on safe and efficient control for autonomous vehicles at unsignalized intersections](https://doi.org/10.1177/09544070251377108) | 2026 | Proceedings of the Institution of Mechanical Engineers, Part D: Journal of Automobile Engineering | Survey/review | Non-signalized intersections and AIM, Evaluation metrics, Deployment evidence | — |
+| [Drivers’ behavior at unsignalized intersections: An empirical analysis and derivation of requirements for the european regulation 1426/2022 concerning the type-approval of automated driving systems](https://doi.org/10.1007/s42421-024-00088-z) | 2024 | Data Science for Transportation | Method paper | Non-signalized intersections and AIM, Evaluation metrics | Not checked |
+| [Mixed-integer linear programming for optimal scheduling of autonomous vehicle intersection crossing](https://doi.org/10.1109/TIV.2018.2843163) | 2018 | IEEE Transactions on Intelligent Vehicles | Method paper | Non-signalized intersections and AIM, Evaluation metrics | Not found |
+| [Game theoretic application to intersection management: A literature review](https://doi.org/10.1109/TIV.2024.3379986) | 2025 | IEEE Transactions on Intelligent Vehicles | Survey/review | Non-signalized intersections and AIM, Evaluation metrics | — |
+| [A review of cooperative intersection: From design to management](https://doi.org/10.1109/TIV.2025.3620807) | 2025 | IEEE Transactions on Intelligent Vehicles | Survey/review | Non-signalized intersections and AIM, Evaluation metrics, Deployment evidence | — |
+| [Near-miss determination through use of a scale of danger](https://onlinepubs.trb.org/Onlinepubs/hrr/1972/384/384-004.pdf) | 1972 | Highway research record | Evaluation method | Evaluation metrics | Not checked |
+| [The development of a method for traffic safety evaluation: The swedish traffic conflicts technique](https://lup.lub.lu.se/search/files/4456913/1653512.pdf) | 1987 | Lund Institute of Technology | Evaluation method | Evaluation metrics | Not checked |
+| [Surrogate Safety Assessment Model and Validation: Final Report](https://www.fhwa.dot.gov/publications/research/safety/08051/08051.pdf) | 2008 | Federal Highway Administration | Evaluation method | Evaluation metrics | Not checked |
+| [Development of VT-micro model for estimating hot stabilized light duty vehicle and truck emissions](https://doi.org/10.1016/S1361-9209(03)00054-3) | 2004 | Transportation Research Part D: Transport and Environment | Evaluation method | Evaluation metrics | Not checked |
+| [MOtor Vehicle Emission Simulator (MOVES)](https://www.epa.gov/moves) | 2026 | Online | Simulator/tool | Evaluation metrics | — |
+| [Handbook Emission Factors for Road Transport (HBEFA)](https://www.hbefa.net/) | 2025 | Online | Standard/guidance | Evaluation metrics | — |
+| [Vehicle dynamics and control](https://doi.org/10.1007/978-1-4614-1433-9) | 2012 | Springer | Background/foundation | Evaluation metrics | Not checked |
+| [Quality-of-experience-oriented autonomous intersection control in vehicular networks](https://doi.org/10.1109/TITS.2016.2514271) | 2016 | IEEE Transactions on Intelligent Transportation Systems | Method paper | Evaluation metrics | Not checked |
+| [J2945/1: On-Board System Requirements for V2V Safety Communications](https://doi.org/10.4271/J2945/1_202004) | 2020 | SAE International | Standard/guidance | Evaluation metrics | — |
+| [Study on Evaluation Methodology of New Vehicle-to-Everything (V2X) Use Cases for LTE and NR](https://portal.3gpp.org/desktopmodules/Specifications/SpecificationDetails.aspx?specificationId=3209) | 2019 | 3rd Generation Partnership Project | Standard/guidance | Evaluation metrics, Deployment evidence | — |
+| [Convex optimization](https://web.stanford.edu/~boyd/cvxbook/bv_cvxbook.pdf) | 2004 | Cambridge University Press | Background/foundation | Evaluation metrics | Not checked |
+| [Model predictive control: Theory, computation, and design](https://sites.engineering.ucsb.edu/~jbraw/mpc/MPC-book-2nd-edition-6th-printing.pdf) | 2017 | Nob Hill Publishing | Background/foundation | Evaluation metrics | Not checked |
+| [Automated traffic signal performance measures](https://ops.fhwa.dot.gov/publications/fhwahop20002/index.htm) | 2020 | Federal Highway Administration, Office of Operations | Dataset | Evaluation metrics, Datasets, benchmarks, and simulation | — |
+
+Machine-readable source: [`data/references.csv`](../../data/references.csv).

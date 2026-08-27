@@ -4,7 +4,8 @@ The CSV files are the source of truth for the generated collection pages. Use UT
 
 | File | Purpose | Generated page |
 |---|---|---|
-| `papers.csv` | Representative research papers and implementation status | [`docs/papers.md`](../docs/papers.md) |
+| `references.csv` | Every distinct work actively cited by the current manuscript, retaining all citation-key aliases plus category, section tags, source link, and code status | [`docs/references.md`](../docs/references.md) |
+| `papers.csv` | Core comparison papers with detailed taxonomy and verified implementation status | [`docs/papers.md`](../docs/papers.md) |
 | `datasets.csv` | Operational, trajectory, planning, and V2X datasets | [`docs/datasets.md`](../docs/datasets.md) |
 | `benchmarks.csv` | Formal benchmarks and scenario resources | [`docs/benchmarks.md`](../docs/benchmarks.md) |
 | `simulators.csv` | Traffic, autonomy, communications, and co-simulation platforms | [`docs/simulators.md`](../docs/simulators.md) |
@@ -18,3 +19,21 @@ The CSV files are the source of truth for the generated collection pages. Use UT
 - `not-found`: no public implementation was located on the verification date.
 
 Never infer an implementation link from title similarity alone. See [`CONTRIBUTING.md`](../CONTRIBUTING.md) for the verification checklist.
+
+## Complete-catalog roles
+
+`references.csv` assigns one primary role while retaining every survey section in which the work is cited:
+
+| Role | Meaning |
+|---|---|
+| `method-paper` | Planning, control, prediction, interaction, or other technical method |
+| `survey-review` | Survey, review, systematic review, or review-of-reviews |
+| `dataset` | Dataset, data portal, or dataset-introduction publication |
+| `benchmark` | Formal benchmark or benchmark-supporting scenario resource |
+| `simulator-tool` | Simulator, co-simulator, modeling framework, or evaluation tool |
+| `deployment-evidence` | Field test, operational program, or deployment assessment |
+| `evaluation-method` | Metric, surrogate-safety, emissions, or validation method |
+| `standard-guidance` | Standard, specification, handbook, or official guidance |
+| `background-foundation` | General theoretical, contextual, or methodological foundation |
+
+`citation_keys` retains all active LaTeX keys associated with the work. This allows duplicate BibTeX records to be consolidated without losing traceability to the manuscript.

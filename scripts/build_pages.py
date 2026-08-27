@@ -6,6 +6,7 @@ from __future__ import annotations
 import argparse
 import csv
 import sys
+from collections import Counter
 from pathlib import Path
 
 
@@ -65,7 +66,7 @@ def papers_page() -> str:
 
 [Back to the repository overview](../README.md)
 
-This index is seeded from the survey's active comparison tables. Taxonomy fields preserve operating assumptions and evidence level. Code links are labeled only after their relationship to the publication has been checked; **—** means no public implementation was located as of the row's `last_verified` date.
+This curated index contains the survey's **core comparison papers** with detailed D1-D3 operating assumptions and evidence fields. For every work cited by the manuscript, use the [complete citation catalog](references.md). Code links are labeled only after their relationship to the publication has been checked; **—** means no public implementation was located as of the row's `last_verified` date.
 
 {body}
 
@@ -167,11 +168,146 @@ Machine-readable source: [`data/simulators.csv`](../data/simulators.csv).
 """
 
 
+REFERENCE_ROLE_LABELS = {
+    "method-paper": "Method paper",
+    "survey-review": "Survey/review",
+    "dataset": "Dataset",
+    "benchmark": "Benchmark",
+    "simulator-tool": "Simulator/tool",
+    "deployment-evidence": "Deployment evidence",
+    "evaluation-method": "Evaluation method",
+    "standard-guidance": "Standard/guidance",
+    "background-foundation": "Background/foundation",
+}
+
+REFERENCE_SECTION_LABELS = {
+    "signalized": "Signalized intersections",
+    "non-signalized-aim": "Non-signalized intersections and AIM",
+    "mixed-traffic-mpr": "Mixed traffic and MPR",
+    "foundation-models": "Foundation models",
+    "evaluation": "Evaluation metrics",
+    "evaluation-resources": "Datasets, benchmarks, and simulation",
+    "deployment": "Deployment evidence",
+    "operating-context": "Operating context",
+    "related-work": "Related work",
+    "taxonomy": "Taxonomy",
+    "review-methodology": "Review methodology",
+    "introduction": "Introduction",
+    "front-matter": "Front matter",
+}
+
+CODE_LABELS = {
+    "official": "Official",
+    "author-released": "Author",
+    "third-party": "Third-party",
+    "not-found": "Not found",
+    "not-checked": "Not checked",
+    "not-applicable": "—",
+}
+
+
+def reference_code_cell(row: dict[str, str]) -> str:
+    label = CODE_LABELS[row["code_status"]]
+    return link(label, row["code_url"]) if row["code_url"] else label
+
+
+def references_table(rows: list[dict[str, str]]) -> str:
+    records = [
+        [
+            link(row["title"], row["paper_url"]),
+            row["year"],
+            row["venue"],
+            REFERENCE_ROLE_LABELS[row["primary_role"]],
+            ", ".join(REFERENCE_SECTION_LABELS.get(value, value) for value in row["survey_sections"].split("; ")),
+            reference_code_cell(row),
+        ]
+        for row in rows
+    ]
+    return table(["Reference", "Year", "Venue/source", "Role", "Survey sections", "Code"], records)
+
+
+def references_overview_page() -> str:
+    rows = read_rows("references.csv")
+    active_keys = sum(len(row["citation_keys"].split("; ")) for row in rows)
+    role_counts = Counter(row["primary_role"] for row in rows)
+    role_rows = [[REFERENCE_ROLE_LABELS[role], str(role_counts[role])] for role in REFERENCE_ROLE_LABELS if role_counts[role]]
+    section_pages = [
+        ("Signalized intersections", "references/signalized.md", "signalized"),
+        ("Non-signalized intersections and AIM", "references/non-signalized-aim.md", "non-signalized-aim"),
+        ("Mixed traffic and MPR", "references/mixed-traffic-mpr.md", "mixed-traffic-mpr"),
+        ("Foundation models", "references/foundation-models.md", "foundation-models"),
+        ("Evaluation metrics", "references/evaluation.md", "evaluation"),
+        ("Datasets, benchmarks, and simulation", "references/evaluation-resources.md", "evaluation-resources"),
+        ("Deployment evidence", "references/deployment.md", "deployment"),
+        ("Background, context, and reviews", "references/background-and-reviews.md", "background"),
+    ]
+    navigation = []
+    for label, path, section in section_pages:
+        if section == "background":
+            count = sum(row["primary_section"] not in {"signalized", "non-signalized-aim", "mixed-traffic-mpr", "foundation-models", "evaluation", "evaluation-resources", "deployment"} for row in rows)
+        else:
+            count = sum(section in row["survey_sections"].split("; ") for row in rows)
+        navigation.append([link(label, path), str(count)])
+    direct = sum(row["link_type"] != "scholar-search" for row in rows)
+    return f"""# Complete citation catalog
+
+[Back to the repository overview](../README.md) · [Core comparison papers](papers.md)
+
+This catalog contains all **{len(rows)} distinct works** represented by the current survey manuscript's **{active_keys} active citation keys**. Citation aliases that point to the same work are consolidated in one row and retained in `citation_keys`. Every title links to a DOI, publisher, official standard/report, institutional repository, or project page. The smaller core-paper index remains a curated subset with detailed D1-D3 method and evidence fields.
+
+## Browse by survey topic
+
+{table(["Topic page", "Cited references"], navigation)}
+
+References may appear on more than one topic page when the manuscript cites them in multiple sections.
+
+## Primary-role coverage
+
+{table(["Primary role", "References"], role_rows)}
+
+## Link and code status
+
+- **{direct}/{len(rows)} work links** are direct links; no generic search-result fallbacks are used.
+- **{sum(row['core_paper'] == 'yes' for row in rows)} core papers** retain manually verified implementation status.
+- `Not checked` means implementation discovery has not yet been completed for that non-core paper; it is not a claim that code is unavailable.
+
+Machine-readable source: [`data/references.csv`](../data/references.csv).
+"""
+
+
+def references_section_page(title: str, section: str, intro: str) -> str:
+    rows = read_rows("references.csv")
+    if section == "background":
+        specialist = {"signalized", "non-signalized-aim", "mixed-traffic-mpr", "foundation-models", "evaluation", "evaluation-resources", "deployment"}
+        selected = [row for row in rows if row["primary_section"] not in specialist]
+    else:
+        selected = [row for row in rows if section in row["survey_sections"].split("; ")]
+    return f"""# {title}
+
+[Complete citation catalog](../references.md) · [Repository overview](../../README.md)
+
+{intro} This page contains **{len(selected)}** distinct cited works; titles link to the paper or primary source.
+
+{references_table(selected)}
+
+Machine-readable source: [`data/references.csv`](../../data/references.csv).
+"""
+
+
 OUTPUTS = {
     ROOT / "docs" / "papers.md": papers_page,
     ROOT / "docs" / "datasets.md": datasets_page,
     ROOT / "docs" / "benchmarks.md": benchmarks_page,
     ROOT / "docs" / "simulators.md": simulators_page,
+    ROOT / "docs" / "references.md": references_overview_page,
+    ROOT / "docs" / "references" / "signalized.md": lambda: references_section_page("Signalized-intersection references", "signalized", "Citations used in the signalized planning and control section."),
+    ROOT / "docs" / "references" / "non-signalized-aim.md": lambda: references_section_page("Non-signalized and AIM references", "non-signalized-aim", "Citations used in the non-signalized and autonomous-intersection-management section."),
+    ROOT / "docs" / "references" / "mixed-traffic-mpr.md": lambda: references_section_page("Mixed-traffic and MPR references", "mixed-traffic-mpr", "Citations used in the cross-cutting mixed-traffic and market-penetration section."),
+    ROOT / "docs" / "references" / "foundation-models.md": lambda: references_section_page("Foundation-model references", "foundation-models", "Citations used in the foundation-model-assisted intelligent-intersections section."),
+    ROOT / "docs" / "references" / "evaluation.md": lambda: references_section_page("Evaluation-metric references", "evaluation", "Citations supporting the evaluation metrics, constraints, and reporting guidance."),
+    ROOT / "docs" / "references" / "evaluation-resources.md": lambda: references_section_page("Dataset, benchmark, and simulation references", "evaluation-resources", "Citations used in the datasets, benchmarks, simulation, and co-simulation section."),
+    ROOT / "docs" / "references" / "deployment.md": lambda: references_section_page("Deployment-evidence references", "deployment", "Citations used in the field evidence, architecture, program, and readiness section."),
+    ROOT / "docs" / "references" / "background-and-reviews.md": lambda: references_section_page("Background, context, and review references", "background", "References whose primary use is the introduction, taxonomy, related work, methodology, or operating-context discussion."),
 }
 
 
@@ -186,6 +322,7 @@ def main() -> int:
             if not path.exists() or path.read_text(encoding="utf-8") != expected:
                 stale.append(path.relative_to(ROOT))
         else:
+            path.parent.mkdir(parents=True, exist_ok=True)
             path.write_text(expected, encoding="utf-8")
             print(f"wrote {path.relative_to(ROOT)}")
     if stale:
