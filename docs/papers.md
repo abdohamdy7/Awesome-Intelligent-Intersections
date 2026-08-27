@@ -2,11 +2,11 @@
 
 [Back to the repository overview](../README.md)
 
-This index is seeded from the survey's active comparison tables. Taxonomy fields preserve operating assumptions and evidence level. Code links are labeled only after their relationship to the publication has been checked; **—** means no public implementation was located as of the row's `last_verified` date.
+This curated index contains the survey's **core comparison papers** with detailed D1-D3 operating assumptions and evidence fields. For every work cited by the manuscript, use the [complete citation catalog](references.md). Code links are labeled only after their relationship to the publication has been checked; **—** means no public implementation was located as of the row's `last_verified` date.
 
 | Paper | Year | Venue | Context | Traffic | Method | Evidence | Code |
 |---|---|---|---|---|---|---|---|
-| Traffic Signal Settings | 1958 | Road Research Technical Paper 39 | signalized | HDV | rule-based-traffic-engineering | analytical | — |
+| [Traffic Signal Settings](https://www.sinaldetransito.com.br/artigos/traffic_signals_webster.pdf) | 1958 | Road Research Technical Paper 39 | signalized | HDV | rule-based-traffic-engineering | analytical | — |
 | [Real-Time Queue Length Estimation for Congested Signalized Intersections](https://doi.org/10.1016/j.trc.2009.02.003) | 2009 | Transportation Research Part C | signalized | HDV | prediction-estimation | field-data | — |
 | [Automated Intersection Control: Performance of a Future Innovation Versus Current Traffic Signal Control](https://doi.org/10.3141/2259-21) | 2011 | Transportation Research Record | non-signalized | full CAV | optimization | single-domain-simulation | — |
 | [Control Strategies of Traffic Signal Timing Transition for Emergency Vehicle Preemption](https://doi.org/10.1016/j.trc.2012.04.004) | 2012 | Transportation Research Part C | signalized | mixed | optimization | single-domain-simulation | — |
@@ -20,7 +20,7 @@ This index is seeded from the survey's active comparison tables. Taxonomy fields
 | [Spatiotemporal Intersection Control in a Connected and Automated Vehicle Environment](https://doi.org/10.1016/j.trc.2018.02.001) | 2018 | Transportation Research Part C | signalized | high CAV | optimization | single-domain-simulation | — |
 | [Mixed-Integer Linear Programming for Optimal Scheduling of Autonomous Vehicle Intersection Crossing](https://doi.org/10.1109/TIV.2018.2843163) | 2018 | IEEE T-IV | non-signalized | full CAV | optimization | analytical | — |
 | [PAIM: Platoon-Based Autonomous Intersection Management](https://doi.org/10.1109/ITSC.2018.8569782) | 2018 | IEEE ITSC | non-signalized | full CAV | optimization | single-domain-simulation | — |
-| [Distributed Conflict-Free Cooperation for Multiple Connected Vehicles at Unsignalized Intersections](https://api.semanticscholar.org/CorpusID:115596271) | 2018 | Transportation Research Part C | non-signalized | full CAV | cooperative-v2x | single-domain-simulation | — |
+| [Distributed Conflict-Free Cooperation for Multiple Connected Vehicles at Unsignalized Intersections](https://www.researchgate.net/profile/Biao_Xu14/publication/326745925_Distributed_conflict-free_cooperation_for_multiple_connected_vehicles_at_unsignalized_intersections/links/5b681876a6fdcc188348152f/Distributed-conflict-free-cooperation-for-multiple-connected-vehicles-at-unsignalized-intersections.pdf) | 2018 | Transportation Research Part C | non-signalized | full CAV | cooperative-v2x | single-domain-simulation | — |
 | [IntelliLight: A Reinforcement Learning Approach for Intelligent Traffic Light Control](https://doi.org/10.1145/3219819.3220096) | 2018 | ACM KDD | signalized | HDV | learning | single-domain-simulation | — |
 | [Diffusion Convolutional Recurrent Neural Network: Data-Driven Traffic Forecasting](https://openreview.net/forum?id=SJiHXGWAZ) | 2018 | ICLR | both | varied | prediction-estimation | field-data | [Official](https://github.com/liyaguang/DCRNN) |
 | [PressLight: Learning Max Pressure Control to Coordinate Traffic Signals in Arterial Network](https://doi.org/10.1145/3292500.3330949) | 2019 | ACM KDD | signalized | HDV | learning | single-domain-simulation | [Official](https://github.com/wingsweihua/presslight) |

@@ -1,7 +1,8 @@
 # Awesome Intelligent Intersections
 
 <p align="center">
-  <a href="docs/papers.md"><img alt="Papers" src="https://img.shields.io/badge/papers-46-22577A"></a>
+  <a href="docs/references.md"><img alt="Cited works" src="https://img.shields.io/badge/cited_works-261-22577A"></a>
+  <a href="docs/papers.md"><img alt="Core papers" src="https://img.shields.io/badge/core_papers-46-6C63FF"></a>
   <a href="docs/datasets.md"><img alt="Datasets" src="https://img.shields.io/badge/datasets-44-2A9D8F"></a>
   <a href="docs/benchmarks.md"><img alt="Benchmarks" src="https://img.shields.io/badge/benchmarks-13-E9C46A"></a>
   <a href="docs/simulators.md"><img alt="Simulators" src="https://img.shields.io/badge/simulators-19-F4A261"></a>
@@ -26,7 +27,8 @@ The collection covers signalized, non-signalized, hybrid signal-CAV, and signal-
 
 | Topic | What it contains |
 |---|---|
-| [Research-paper index](docs/papers.md) | Paper, venue, operating context, traffic composition, method family, evidence level, and verified code status |
+| [Complete citation catalog](docs/references.md) | All 261 distinct works represented by 266 active citation keys, categorized by role and survey section with source links |
+| [Core comparison papers](docs/papers.md) | 46 deeply coded papers with operating context, traffic composition, method family, evidence level, and verified code status |
 | [Signalized intersections](docs/signalized-intersections.md) | Signal timing, estimation, signal-trajectory coordination, learning, multimodal and priority-aware control |
 | [Non-signalized intersections and AIM](docs/non-signalized-and-aim.md) | Gap acceptance, reservation AIM, distributed control, mixed traffic, negotiation, learning |
 | [Mixed traffic and MPR](docs/mixed-traffic-and-mpr.md) | Capability-based interpretation of penetration, observability, controllability, and reporting requirements |
@@ -61,19 +63,20 @@ Code links are checked against the paper, author, laboratory, or project reposit
 | [PromptGAT](https://doi.org/10.1609/aaai.v38i1.27758) | Signalized | Foundation-model-assisted transfer | [Official](https://github.com/DaRL-LibSignal/PromptGAT) |
 | [TrafficGPT](https://doi.org/10.1016/j.tranpol.2024.03.006) | Cross-cutting | Tool orchestration | [Official](https://github.com/lijlansg/TrafficGPT) |
 
-See the [complete paper index](docs/papers.md) for all seeded records.
+See the [core comparison-paper index](docs/papers.md) for detailed D1-D3 records and the [complete citation catalog](docs/references.md) for every work cited in the manuscript.
 
 ## Resource snapshot
 
-The first repository release is seeded directly from the survey's active comparison tables:
+The repository distinguishes complete citation coverage from the smaller, deeply coded comparison subset:
 
-- **46** representative research papers across signalized, non-signalized/AIM, mixed-traffic, and foundation-model-assisted methods;
+- **261** distinct cited works represented by **266** active citation keys, with duplicate BibTeX aliases consolidated and retained;
+- **46** core comparison papers across signalized, non-signalized/AIM, mixed-traffic, and foundation-model-assisted methods;
 - **44** operational, trajectory, interaction, motion-planning, and cooperative-perception datasets;
 - **13** formal benchmarks and benchmark-supporting scenario resources;
 - **19** traffic, automated-driving, V2X, and multidomain simulation platforms;
 - **8** control-architecture and program-level deployment records.
 
-The machine-readable source files are in [`data/`](data/). Generated resource pages can be rebuilt with:
+The manuscript's larger BibTeX database includes uncited records; the 266-key count intentionally reflects the active `\\cite{...}` set. The machine-readable source files are in [`data/`](data/). Generated resource pages can be rebuilt with:
 
 ```bash
 python scripts/build_pages.py

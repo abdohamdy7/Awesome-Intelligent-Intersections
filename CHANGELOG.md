@@ -2,6 +2,14 @@
 
 All notable changes to this repository will be documented here.
 
+## Unreleased
+
+- Added a categorized catalog for all 261 distinct works represented by 266 active manuscript citation keys.
+- Consolidated five citation-key aliases associated with four duplicate bibliography records while retaining every active key.
+- Added direct DOI, publisher, official report/standard, institutional, or project links for every catalog record.
+- Added topic-specific generated reference pages and clarified the distinction between complete citations and 46 core comparison papers.
+- Added direct paper links to representative-study columns in the signalized, non-signalized/AIM, mixed-traffic, foundation-model, and deployment guides.
+
 ## 0.1.0 - 2026-08-27
 
 - Reorganized the repository around the survey's D1-D3 taxonomy.

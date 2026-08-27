@@ -32,3 +32,5 @@ The simulator index distinguishes:
 | Interaction analysis | yielding, negotiation, intent, gap acceptance | synchronized trajectories and contextual right-of-way information |
 
 Formal benchmark status should not be inferred from dataset popularity. [`data/benchmarks.csv`](../data/benchmarks.csv) explicitly separates formal benchmarks from benchmark-supporting scenarios.
+
+See the [complete evaluation-resource citation page](references/evaluation-resources.md) for all dataset, benchmark, simulator, co-simulation, calibration, and reproducibility references used in the manuscript.
