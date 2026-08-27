@@ -1,0 +1,45 @@
+name: Add or update a resource
+description: Propose a dataset, benchmark, simulator, or deployment record.
+title: "[Resource]: "
+labels: [resource]
+body:
+  - type: dropdown
+    id: resource_type
+    attributes:
+      label: Resource type
+      options: [dataset, benchmark or scenario, simulator or co-simulator, deployment architecture or program]
+    validations:
+      required: true
+  - type: input
+    id: name
+    attributes:
+      label: Resource name
+    validations:
+      required: true
+  - type: input
+    id: url
+    attributes:
+      label: Official or primary URL
+    validations:
+      required: true
+  - type: textarea
+    id: relevance
+    attributes:
+      label: Intersection relevance and supported tasks
+      description: Explain the direct intersection-planning, control, evaluation, or deployment use.
+    validations:
+      required: true
+  - type: textarea
+    id: metadata
+    attributes:
+      label: Proposed metadata and limitations
+      description: Include context, scale, participants/capabilities, access or license constraints, and important limitations.
+    validations:
+      required: true
+  - type: checkboxes
+    id: checks
+    attributes:
+      label: Checks
+      options:
+        - label: I used a primary project, publisher, or official deployment source.
+          required: true

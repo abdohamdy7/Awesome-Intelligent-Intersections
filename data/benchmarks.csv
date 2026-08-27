@@ -1,0 +1,14 @@
+id,name,context,type,scenario_scope,evaluation_mode,tasks,limitation,url,bibtex_key,last_verified
+cityflow-scenarios,CityFlow scenarios,signalized,simulation-ready scenario,varied,closed-loop capable,traffic optimization,No fixed cross-study protocol,https://github.com/cityflow-project/CityFlow,Zhang2019CityFlow,2026-08-27
+libsignal,LibSignal,signalized,formal benchmark,varied,closed-loop,traffic optimization,Simulator- and scenario-dependent,https://github.com/DaRL-LibSignal/LibSignal,Mei2023LibSignal,2026-08-27
+resco,RESCO,signalized,formal benchmark,varied,closed-loop,traffic optimization,Limited V2X and VRU realism,https://github.com/Pi-Star-Lab/RESCO,Ault2021RESCO,2026-08-27
+mixedtrafficplus,MixedTrafficPlus,non-signalized,formal benchmark,varied,closed-loop,traffic optimization; motion planning; safety assessment,Simulation-only evaluation,https://doi.org/10.1109/ICRA55743.2025.11127732,Xiao2025MixedTrafficPlus,2026-08-27
+opencda-marl,OpenCDA-MARL,non-signalized,formal benchmark,single,closed-loop,V2X cooperation; motion planning; safety assessment,Limited field validation,https://github.com/radar-lab/OpenCDA-MARL,Guo2026OpenCDAMARL,2026-08-27
+v2xverse,V2Xverse,non-signalized,formal benchmark,varied,open- and closed-loop,V2X cooperation; motion planning; perception,CARLA-dependent realism,https://github.com/CollaborativePerception/V2Xverse,Liu2025V2Xverse,2026-08-27
+mdrive,MDrive,non-signalized,formal benchmark,varied,closed-loop,V2X cooperation; motion planning; safety assessment,Limited external validation,https://arxiv.org/abs/2605.10904,Coscoy2026MDrive,2026-08-27
+five-city-data,Five-city traffic-control data,signalized,benchmark-ready resource,network,not fixed,traffic optimization,No fixed benchmark protocol,https://doi.org/10.1038/s41597-026-06892-2,Ma2026CityScale,2026-08-27
+intas,InTAS,both,simulation-ready scenario,network,closed-loop capable,traffic optimization; V2X cooperation,No fixed benchmark protocol,https://doi.org/10.52825/scp.v1i.102,Lobo2022InTAS,2026-08-27
+tapas-cologne,TAPAS Cologne,both,simulation-ready scenario,network,closed-loop capable,traffic optimization,Network and demand quality caveats,https://sumo.dlr.de/docs/Data/Scenarios/TAPASCologne.html,TAPASCologne,2026-08-27
+lust,LuST,both,simulation-ready scenario,network,closed-loop capable,traffic optimization; V2X cooperation,Version-sensitive validation,https://github.com/lcodeca/LuSTScenario,Codeca2015LuST,2026-08-27
+most,MoST,both,simulation-ready scenario,network,closed-loop capable,traffic optimization; V2X cooperation,No fixed control protocol,https://github.com/lcodeca/MoSTScenario,Codeca2017MoST,2026-08-27
+commonroad,CommonRoad,both,formal benchmark,varied,open- and closed-loop capable,motion planning; safety assessment,Not intersection-control specific,https://commonroad.in.tum.de/,Althoff2017CommonRoad,2026-08-27
