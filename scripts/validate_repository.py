@@ -109,6 +109,11 @@ def validate_badges(counts: dict[str, int], errors: list[str]) -> None:
         match = re.search(rf"badge/{re.escape(label)}-(\d+)-", readme)
         if not match or int(match.group(1)) != expected:
             errors.append(f"README.md: {label} badge should report {expected}")
+    with (ROOT / "data" / "references.csv").open(encoding="utf-8", newline="") as handle:
+        code_count = sum(bool(row["code_url"].strip()) for row in csv.DictReader(handle))
+    match = re.search(r"badge/code_repositories-(\d+)-", readme)
+    if not match or int(match.group(1)) != code_count:
+        errors.append(f"README.md: code_repositories badge should report {code_count}")
 
 
 def validate_markdown_links(errors: list[str]) -> None:

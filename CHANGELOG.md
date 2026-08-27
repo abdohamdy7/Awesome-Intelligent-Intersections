@@ -4,6 +4,8 @@ All notable changes to this repository will be documented here.
 
 ## Unreleased
 
+- Expanded verified code coverage from 7 to 74 cited works across methods, datasets, benchmarks, and simulators.
+- Added a generated full implementation index with release provenance and direct paper/repository links.
 - Added a categorized catalog for all 261 distinct works represented by 266 active manuscript citation keys.
 - Consolidated five citation-key aliases associated with four duplicate bibliography records while retaining every active key.
 - Added direct DOI, publisher, official report/standard, institutional, or project links for every catalog record.

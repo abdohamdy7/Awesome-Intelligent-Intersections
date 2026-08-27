@@ -64,7 +64,7 @@ def papers_page() -> str:
     )
     return f"""# Research-paper index
 
-[Back to the repository overview](../README.md)
+[Back to the repository overview](../README.md) · [All verified code repositories](code.md)
 
 This curated index contains the survey's **core comparison papers** with detailed D1-D3 operating assumptions and evidence fields. For every work cited by the manuscript, use the [complete citation catalog](references.md). Code links are labeled only after their relationship to the publication has been checked; **—** means no public implementation was located as of the row's `last_verified` date.
 
@@ -205,6 +205,52 @@ CODE_LABELS = {
     "not-applicable": "—",
 }
 
+CODE_ROLE_ORDER = ("method-paper", "dataset", "benchmark", "simulator-tool")
+
+
+def repository_label(url: str) -> str:
+    parts = url.rstrip("/").split("/")
+    if len(parts) >= 2 and parts[2] in {"github.com", "gitlab.com"}:
+        return "/".join(parts[3:5])
+    return "Repository"
+
+
+def code_page() -> str:
+    rows = [row for row in read_rows("references.csv") if row["code_url"]]
+    status_counts = Counter(row["code_status"] for row in rows)
+    sections = []
+    for role in CODE_ROLE_ORDER:
+        selected = sorted(
+            (row for row in rows if row["primary_role"] == role),
+            key=lambda row: (-(int(row["year"]) if row["year"].isdigit() else 0), row["title"].lower()),
+        )
+        records = [
+            [
+                link(row["title"], row["paper_url"]),
+                row["year"],
+                REFERENCE_SECTION_LABELS.get(row["primary_section"], row["primary_section"]),
+                link(repository_label(row["code_url"]), row["code_url"]),
+                CODE_LABELS[row["code_status"]],
+            ]
+            for row in selected
+        ]
+        sections.append(
+            f"## {REFERENCE_ROLE_LABELS[role]}s ({len(selected)})\n\n"
+            + table(["Paper/resource", "Year", "Primary survey topic", "Code repository", "Release"], records)
+        )
+    return f"""# Code and implementation index
+
+[Back to the repository overview](../README.md) · [Complete citation catalog](references.md) · [Core comparison papers](papers.md)
+
+This page collects **{len(rows)} cited works with verified public code relationships**: **{status_counts['official']} official/project repositories**, **{status_counts['author-released']} author-released repositories**, and **{status_counts['third-party']} clearly labeled third-party reproduction**. Dataset devkits, benchmark implementations, and simulator source code are included because they are executable research artifacts tied directly to cited publications.
+
+`Official` means the repository identifies itself as the official implementation or is linked by the publication/project. `Author` means an author or author organization released it without an explicit official claim. `Third-party` is an independent reproduction and is never presented as author code. Each title links to the cited work; each repository name links directly to code.
+
+{"\n\n".join(sections)}
+
+Machine-readable source: [`data/references.csv`](../data/references.csv). Verification corrections and additional implementations are welcome through [CONTRIBUTING.md](../CONTRIBUTING.md).
+"""
+
 
 def reference_code_cell(row: dict[str, str]) -> str:
     label = CODE_LABELS[row["code_status"]]
@@ -249,9 +295,10 @@ def references_overview_page() -> str:
             count = sum(section in row["survey_sections"].split("; ") for row in rows)
         navigation.append([link(label, path), str(count)])
     direct = sum(row["link_type"] != "scholar-search" for row in rows)
+    code_count = sum(bool(row["code_url"]) for row in rows)
     return f"""# Complete citation catalog
 
-[Back to the repository overview](../README.md) · [Core comparison papers](papers.md)
+[Back to the repository overview](../README.md) · [Code and implementation index](code.md) · [Core comparison papers](papers.md)
 
 This catalog contains all **{len(rows)} distinct works** represented by the current survey manuscript's **{active_keys} active citation keys**. Citation aliases that point to the same work are consolidated in one row and retained in `citation_keys`. Every title links to a DOI, publisher, official standard/report, institutional repository, or project page. The smaller core-paper index remains a curated subset with detailed D1-D3 method and evidence fields.
 
@@ -269,6 +316,7 @@ References may appear on more than one topic page when the manuscript cites them
 
 - **{direct}/{len(rows)} work links** are direct links; no generic search-result fallbacks are used.
 - **{sum(row['core_paper'] == 'yes' for row in rows)} core papers** retain manually verified implementation status.
+- **{code_count} cited works** have a verified implementation, devkit, benchmark, or simulator repository.
 - `Not checked` means implementation discovery has not yet been completed for that non-core paper; it is not a claim that code is unavailable.
 
 Machine-readable source: [`data/references.csv`](../data/references.csv).
@@ -296,6 +344,7 @@ Machine-readable source: [`data/references.csv`](../../data/references.csv).
 
 OUTPUTS = {
     ROOT / "docs" / "papers.md": papers_page,
+    ROOT / "docs" / "code.md": code_page,
     ROOT / "docs" / "datasets.md": datasets_page,
     ROOT / "docs" / "benchmarks.md": benchmarks_page,
     ROOT / "docs" / "simulators.md": simulators_page,

@@ -4,7 +4,7 @@ The CSV files are the source of truth for the generated collection pages. Use UT
 
 | File | Purpose | Generated page |
 |---|---|---|
-| `references.csv` | Every distinct work actively cited by the current manuscript, retaining all citation-key aliases plus category, section tags, source link, and code status | [`docs/references.md`](../docs/references.md) |
+| `references.csv` | Every distinct work actively cited by the current manuscript, retaining all citation-key aliases plus category, section tags, source link, and code status | [`docs/references.md`](../docs/references.md) and [`docs/code.md`](../docs/code.md) |
 | `papers.csv` | Core comparison papers with detailed taxonomy and verified implementation status | [`docs/papers.md`](../docs/papers.md) |
 | `datasets.csv` | Operational, trajectory, planning, and V2X datasets | [`docs/datasets.md`](../docs/datasets.md) |
 | `benchmarks.csv` | Formal benchmarks and scenario resources | [`docs/benchmarks.md`](../docs/benchmarks.md) |
@@ -17,6 +17,8 @@ The CSV files are the source of truth for the generated collection pages. Use UT
 - `author-released`: maintained by an author or author organization, without an explicit official claim.
 - `third-party`: independent reproduction; label it clearly.
 - `not-found`: no public implementation was located on the verification date.
+- `not-checked`: implementation discovery has not yet been completed.
+- `not-applicable`: code discovery is not meaningful for this source type, or no executable artifact is expected.
 
 Never infer an implementation link from title similarity alone. See [`CONTRIBUTING.md`](../CONTRIBUTING.md) for the verification checklist.
 
