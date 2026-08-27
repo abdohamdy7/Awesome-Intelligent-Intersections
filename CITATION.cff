@@ -1,0 +1,28 @@
+cff-version: 1.2.0
+message: "If you use this collection, please cite the accompanying survey manuscript and this repository."
+title: "Awesome Intelligent Intersections"
+type: dataset
+authors:
+  - family-names: Ahmad
+    given-names: Abdulrahman
+  - family-names: Al-Sumaiti
+    given-names: Ameena S.
+  - family-names: Malik
+    given-names: Sumbal
+  - family-names: Byon
+    given-names: Young Ji
+  - family-names: Al Hosani
+    given-names: Khalifa
+  - family-names: Khonji
+    given-names: Majid
+repository-code: "https://github.com/abdohamdy7/Awesome-Intelligent-Intersections"
+abstract: "A taxonomy-driven collection supporting a survey of ITS-enabled intelligent-intersection planning and control with connected automated vehicles and mixed traffic."
+keywords:
+  - intelligent intersections
+  - connected automated vehicles
+  - traffic signal control
+  - autonomous intersection management
+  - mixed traffic
+  - intelligent transportation systems
+version: 0.1.0
+date-released: 2026-08-27

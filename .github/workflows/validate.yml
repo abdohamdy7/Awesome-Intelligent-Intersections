@@ -1,0 +1,24 @@
+name: Validate collection
+
+on:
+  pull_request:
+  push:
+    branches: [main]
+
+permissions:
+  contents: read
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Check generated pages
+        run: python scripts/build_pages.py --check
+      - name: Validate data and links
+        run: python scripts/validate_repository.py
+      - name: Compile Python utilities
+        run: python -m py_compile scripts/*.py

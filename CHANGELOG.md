@@ -1,0 +1,11 @@
+# Changelog
+
+All notable changes to this repository will be documented here.
+
+## 0.1.0 - 2026-08-27
+
+- Reorganized the repository around the survey's D1-D3 taxonomy.
+- Added structured indexes for 46 papers, 44 datasets, 13 benchmark resources, 19 simulators, and 8 deployment records.
+- Added verified implementation links where a paper-code relationship was found.
+- Added survey figures and focused guides for signalized, non-signalized/AIM, mixed-traffic, foundation-model, evaluation, and deployment topics.
+- Added reproducible page generation, schema/link validation, contribution guidance, and GitHub issue/PR templates.

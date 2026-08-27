@@ -1,0 +1,48 @@
+name: Add or update a paper
+description: Propose a research-paper record or implementation-link correction.
+title: "[Paper]: "
+labels: [paper]
+body:
+  - type: input
+    id: title
+    attributes:
+      label: Paper title
+    validations:
+      required: true
+  - type: input
+    id: paper_url
+    attributes:
+      label: Stable paper URL or DOI
+    validations:
+      required: true
+  - type: input
+    id: code_url
+    attributes:
+      label: Implementation URL
+      description: Leave blank when no public implementation is known.
+  - type: textarea
+    id: verification
+    attributes:
+      label: Paper-code relationship
+      description: Explain how the implementation is linked to the publication and whether it is official, author-released, or third-party.
+  - type: dropdown
+    id: intersection_context
+    attributes:
+      label: Intersection context
+      options: [signalized, non-signalized, both]
+    validations:
+      required: true
+  - type: textarea
+    id: assumptions
+    attributes:
+      label: Traffic, connectivity, control, and evidence assumptions
+      description: Include fleet composition/MPR, control authority, communications, and highest demonstrated environment.
+    validations:
+      required: true
+  - type: checkboxes
+    id: checks
+    attributes:
+      label: Checks
+      options:
+        - label: I checked the links and claims against the publication or an author/project source.
+          required: true
