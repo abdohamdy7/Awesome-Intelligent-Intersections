@@ -20,11 +20,21 @@ body:
     attributes:
       label: Implementation URL
       description: Leave blank when no public implementation is known.
+  - type: input
+    id: project_url
+    attributes:
+      label: Project URL
+      description: Optional project page when it differs from the publication and implementation URLs.
+  - type: dropdown
+    id: artifact_type
+    attributes:
+      label: Artifact type
+      options: [not applicable, method implementation, dataset devkit, benchmark or scenarios, simulator or tool source, other research software]
   - type: textarea
     id: verification
     attributes:
       label: Paper-code relationship
-      description: Explain how the implementation is linked to the publication and whether it is official, author-released, or third-party.
+      description: Explain how the implementation is linked to the publication, provide the verification evidence URL, and state whether it is official/project, author-released, or third-party.
   - type: dropdown
     id: intersection_context
     attributes:

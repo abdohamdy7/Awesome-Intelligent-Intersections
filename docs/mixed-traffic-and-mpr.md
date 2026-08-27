@@ -17,12 +17,12 @@ These labels are study-dependent. Every repository record should be checked agai
 
 ## Representative linked evidence
 
-| Topic | Representative papers |
-|---|---|
-| Signalized mixed autonomy and MPR | [Al-Turki et al.](https://doi.org/10.1109/ACCESS.2022.3148706); [Song et al.](https://doi.org/10.1080/03081060.2021.1943129); [Tajalli and Hajbabaie](https://doi.org/10.1109/TITS.2021.3058193); [Wang et al.](https://doi.org/10.1109/TITS.2019.2911607) |
-| Non-signalized mixed traffic | [Chen et al.](https://doi.org/10.1145/3566097.3567849); [Zhou et al.](https://doi.org/10.1109/TVT.2025.3630320); [Pappas et al.](https://doi.org/10.1016/j.ifacol.2024.07.334); [Li et al.](https://doi.org/10.1007/s42154-023-00219-2) |
-| Interaction and behavioral uncertainty | [Pourjafari et al.](https://doi.org/10.1109/TIV.2023.3321275); [Zhao et al.](https://doi.org/10.1016/j.trc.2024.104974); [Albano et al.](https://doi.org/10.1007/s42421-024-00088-z) |
-| Capability terminology | [SAE J3016](https://www.sae.org/standards/j3016_202104-taxonomy-definitions-terms-related-driving-automation-systems-road-motor-vehicles) |
+| Topic | Representative linked papers | Verified code |
+|---|---|---|
+| Signalized mixed autonomy and MPR | [Al-Turki et al.](https://doi.org/10.1109/ACCESS.2022.3148706); [Song et al.](https://doi.org/10.1080/03081060.2021.1943129); [Tajalli and Hajbabaie](https://doi.org/10.1109/TITS.2021.3058193); [Wang et al.](https://doi.org/10.1109/TITS.2019.2911607) | — |
+| Non-signalized mixed traffic | [Chen et al.](https://doi.org/10.1145/3566097.3567849); [Zhou et al.](https://doi.org/10.1109/TVT.2025.3630320); [Pappas et al.](https://doi.org/10.1016/j.ifacol.2024.07.334); [Li et al.](https://doi.org/10.1007/s42154-023-00219-2) | — |
+| Interaction and behavioral uncertainty | [Pourjafari et al.](https://doi.org/10.1109/TIV.2023.3321275); [Zhao et al.](https://doi.org/10.1016/j.trc.2024.104974); [Albano et al.](https://doi.org/10.1007/s42421-024-00088-z) | — |
+| Capability terminology | [SAE J3016](https://www.sae.org/standards/j3016_202104-taxonomy-definitions-terms-related-driving-automation-systems-road-motor-vehicles) | — |
 
 ## MPR interpretation
 

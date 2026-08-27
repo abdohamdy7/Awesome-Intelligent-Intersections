@@ -4,16 +4,22 @@ The CSV files are the source of truth for the generated collection pages. Use UT
 
 | File | Purpose | Generated page |
 |---|---|---|
-| `references.csv` | Every distinct work actively cited by the current manuscript, retaining all citation-key aliases plus category, section tags, source link, and code status | [`docs/references.md`](../docs/references.md) and [`docs/code.md`](../docs/code.md) |
+| `references.csv` | Every distinct work actively cited by the current manuscript, retaining citation-key aliases, publication/project/code links, taxonomy tags, artifact type, and verification provenance | [`docs/references.md`](../docs/references.md) and [`docs/code.md`](../docs/code.md) |
 | `papers.csv` | Core comparison papers with detailed taxonomy and verified implementation status | [`docs/papers.md`](../docs/papers.md) |
 | `datasets.csv` | Operational, trajectory, planning, and V2X datasets | [`docs/datasets.md`](../docs/datasets.md) |
 | `benchmarks.csv` | Formal benchmarks and scenario resources | [`docs/benchmarks.md`](../docs/benchmarks.md) |
 | `simulators.csv` | Traffic, autonomy, communications, and co-simulation platforms | [`docs/simulators.md`](../docs/simulators.md) |
 | `deployment.csv` | Control architectures and deployment programs | [`docs/deployment-readiness.md`](../docs/deployment-readiness.md) |
 
-## Paper code status
+## Publication, project, and code links
 
-- `official`: the repository identifies itself as the official implementation or is linked by the publication/project.
+- `paper_url` points to the DOI, publisher page, preprint, standard, report, or other primary cited source.
+- `project_url` points to the dataset, benchmark, simulator, or laboratory project page when it differs from the cited source.
+- `code_url` points directly to the verified public repository. It must not substitute for `paper_url`.
+
+## Code relationship status
+
+- `official`: the repository identifies itself as official or is linked by the publication/project.
 - `author-released`: maintained by an author or author organization, without an explicit official claim.
 - `third-party`: independent reproduction; label it clearly.
 - `not-found`: no public implementation was located on the verification date.
@@ -21,6 +27,19 @@ The CSV files are the source of truth for the generated collection pages. Use UT
 - `not-applicable`: code discovery is not meaningful for this source type, or no executable artifact is expected.
 
 Never infer an implementation link from title similarity alone. See [`CONTRIBUTING.md`](../CONTRIBUTING.md) for the verification checklist.
+
+## Artifact and verification provenance
+
+`artifact_type` distinguishes `method-implementation`, `dataset-devkit`, `benchmark-suite`, `simulator-tool-source`, and general `research-software`. Records without a linked repository use `none`.
+
+`verification_basis` records the relationship used to justify the link:
+
+- `publication-project-or-repository`: the publication, project, or repository identifies the relationship;
+- `author-or-lab-release`: an author or author organization released the repository;
+- `independent-reproduction`: the repository explicitly identifies the independently reproduced work;
+- `not-applicable`: no repository is linked.
+
+`verification_evidence_url` points to the source inspected during verification. Public source availability represents only a minimum **R1 artifact level** and does not imply that results are reproducible, dependencies are pinned, or the project is maintained.
 
 ## Complete-catalog roles
 

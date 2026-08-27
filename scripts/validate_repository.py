@@ -13,7 +13,7 @@ from urllib.parse import unquote, urlparse
 ROOT = Path(__file__).resolve().parents[1]
 
 SCHEMAS = {
-    "references.csv": ["citation_order", "bibtex_key", "citation_keys", "title", "year", "authors", "venue", "publication_type", "primary_role", "primary_section", "survey_sections", "paper_url", "link_type", "core_paper", "code_url", "code_status", "last_verified"],
+    "references.csv": ["citation_order", "bibtex_key", "citation_keys", "title", "year", "authors", "venue", "publication_type", "primary_role", "primary_section", "survey_sections", "paper_url", "project_url", "link_type", "core_paper", "code_url", "code_status", "artifact_type", "verification_basis", "verification_evidence_url", "last_verified"],
     "papers.csv": ["id", "title", "year", "venue", "intersection_context", "traffic_context", "method_family", "coordination_architecture", "evidence_level", "paper_url", "code_url", "code_status", "bibtex_key", "last_verified"],
     "datasets.csv": ["id", "name", "year", "context", "data_provided", "acquisition", "participants", "scale", "tasks", "url", "bibtex_key", "last_verified"],
     "benchmarks.csv": ["id", "name", "context", "type", "scenario_scope", "evaluation_mode", "tasks", "limitation", "url", "bibtex_key", "last_verified"],
@@ -25,6 +25,8 @@ CONTROLLED = {
     ("references.csv", "primary_role"): {"method-paper", "survey-review", "dataset", "benchmark", "simulator-tool", "deployment-evidence", "evaluation-method", "standard-guidance", "background-foundation"},
     ("references.csv", "core_paper"): {"yes", "no"},
     ("references.csv", "code_status"): {"official", "author-released", "third-party", "not-found", "not-checked", "not-applicable"},
+    ("references.csv", "artifact_type"): {"method-implementation", "dataset-devkit", "benchmark-suite", "simulator-tool-source", "research-software", "none"},
+    ("references.csv", "verification_basis"): {"publication-project-or-repository", "author-or-lab-release", "independent-reproduction", "not-applicable"},
     ("papers.csv", "intersection_context"): {"signalized", "non-signalized", "both"},
     ("papers.csv", "coordination_architecture"): {"centralized", "decentralized", "hierarchical", "not-applicable"},
     ("papers.csv", "code_status"): {"official", "author-released", "third-party", "not-found"},
@@ -78,6 +80,18 @@ def validate_csvs(errors: list[str]) -> dict[str, int]:
                 code_expected = row["code_status"] in {"official", "author-released", "third-party"}
                 if has_code != code_expected:
                     errors.append(f"{filename}:{line}: code_url and code_status disagree")
+                if has_code:
+                    if row["artifact_type"] == "none":
+                        errors.append(f"{filename}:{line}: linked code requires artifact_type")
+                    if row["verification_basis"] == "not-applicable":
+                        errors.append(f"{filename}:{line}: linked code requires verification_basis")
+                    if not row["verification_evidence_url"].strip():
+                        errors.append(f"{filename}:{line}: linked code requires verification_evidence_url")
+                    if row["paper_url"].rstrip("/") == row["code_url"].rstrip("/"):
+                        errors.append(f"{filename}:{line}: paper_url and code_url must be separated")
+                else:
+                    if row["artifact_type"] != "none" or row["verification_basis"] != "not-applicable" or row["verification_evidence_url"].strip():
+                        errors.append(f"{filename}:{line}: absent code must use empty provenance metadata")
                 if not row["survey_sections"].strip():
                     errors.append(f"{filename}:{line}: survey_sections is required")
                 if not row["citation_keys"].strip():
@@ -111,9 +125,14 @@ def validate_badges(counts: dict[str, int], errors: list[str]) -> None:
             errors.append(f"README.md: {label} badge should report {expected}")
     with (ROOT / "data" / "references.csv").open(encoding="utf-8", newline="") as handle:
         code_count = sum(bool(row["code_url"].strip()) for row in csv.DictReader(handle))
-    match = re.search(r"badge/code_repositories-(\d+)-", readme)
+    match = re.search(r"badge/code_linked_works-(\d+)-", readme)
     if not match or int(match.group(1)) != code_count:
-        errors.append(f"README.md: code_repositories badge should report {code_count}")
+        errors.append(f"README.md: code_linked_works badge should report {code_count}")
+    with (ROOT / "data" / "references.csv").open(encoding="utf-8", newline="") as handle:
+        unique_code_count = len({row["code_url"].strip() for row in csv.DictReader(handle) if row["code_url"].strip()})
+    match = re.search(r"badge/unique_code_repositories-(\d+)-", readme)
+    if not match or int(match.group(1)) != unique_code_count:
+        errors.append(f"README.md: unique_code_repositories badge should report {unique_code_count}")
 
 
 def validate_markdown_links(errors: list[str]) -> None:
