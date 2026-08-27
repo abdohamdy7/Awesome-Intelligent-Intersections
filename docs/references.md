@@ -33,11 +33,22 @@ References may appear on more than one topic page when the manuscript cites them
 | Standard/guidance | 16 |
 | Background/foundation | 5 |
 
+## Publication timeline
+
+| Period | All works | Method papers | Datasets/benchmarks/tools | Code-linked works |
+|---|---|---|---|---|
+| Before 2000 | 5 | 3 | 0 | 0 |
+| 2000–2009 | 13 | 7 | 1 | 2 |
+| 2010–2014 | 15 | 8 | 3 | 2 |
+| 2015–2019 | 47 | 22 | 11 | 17 |
+| 2020–2022 | 56 | 12 | 22 | 17 |
+| 2023–2026 | 125 | 38 | 47 | 35 |
+
 ## Link and code status
 
 - **261/261 work links** are direct links; no generic search-result fallbacks are used.
 - **46 core papers** retain manually verified implementation status.
-- **74 cited works** have a verified implementation, devkit, benchmark, or simulator repository.
+- **73 cited works** map to **69 distinct repositories** with a verified implementation, devkit, benchmark, or simulator relationship.
 - `Not checked` means implementation discovery has not yet been completed for that non-core paper; it is not a claim that code is unavailable.
 
 Machine-readable source: [`data/references.csv`](../data/references.csv).

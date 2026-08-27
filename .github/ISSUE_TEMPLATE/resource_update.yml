@@ -17,11 +17,26 @@ body:
     validations:
       required: true
   - type: input
-    id: url
+    id: paper_url
     attributes:
-      label: Official or primary URL
+      label: Publication or primary-source URL
     validations:
       required: true
+  - type: input
+    id: project_url
+    attributes:
+      label: Project URL
+      description: Dataset, benchmark, simulator, or deployment project page when different from the primary source.
+  - type: input
+    id: code_url
+    attributes:
+      label: Code or devkit URL
+      description: Leave blank when no executable public artifact is known.
+  - type: textarea
+    id: verification
+    attributes:
+      label: Artifact relationship and evidence
+      description: State the artifact type, official/author/third-party relationship, and the URL used to verify it.
   - type: textarea
     id: relevance
     attributes:
@@ -41,5 +56,5 @@ body:
     attributes:
       label: Checks
       options:
-        - label: I used a primary project, publisher, or official deployment source.
+        - label: I separated the publication/source, project, and code URLs and checked each supplied link.
           required: true

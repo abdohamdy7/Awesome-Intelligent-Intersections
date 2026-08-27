@@ -6,11 +6,29 @@ from __future__ import annotations
 import argparse
 import csv
 import sys
-from collections import Counter
+from collections import Counter, defaultdict
 from pathlib import Path
 
 
 ROOT = Path(__file__).resolve().parents[1]
+
+CODE_LABELS = {
+    "official": "Official/project",
+    "author-released": "Author-released",
+    "third-party": "Third-party",
+    "not-found": "Not found",
+    "not-checked": "Not checked",
+    "not-applicable": "—",
+}
+
+ARTIFACT_LABELS = {
+    "method-implementation": "Method implementation",
+    "dataset-devkit": "Dataset/devkit",
+    "benchmark-suite": "Benchmark/scenarios",
+    "simulator-tool-source": "Simulator/tool source",
+    "research-software": "Research software",
+    "none": "—",
+}
 
 
 def read_rows(name: str) -> list[dict[str, str]]:
@@ -33,17 +51,28 @@ def table(headers: list[str], rows: list[list[str]]) -> str:
     return "\n".join(rendered)
 
 
+def reference_map() -> dict[str, dict[str, str]]:
+    return {row["bibtex_key"]: row for row in read_rows("references.csv")}
+
+
+def resource_link_cells(row: dict[str, str], references: dict[str, dict[str, str]]) -> list[str]:
+    reference = references.get(row["bibtex_key"], {})
+    paper_url = reference.get("paper_url", "")
+    project_url = row["url"] if row["url"] != paper_url else ""
+    code_url = reference.get("code_url", "")
+    code_status = reference.get("code_status", "not-applicable")
+    return [
+        link("Paper/source", paper_url) if paper_url else "—",
+        link("Project", project_url) if project_url else "—",
+        link(CODE_LABELS[code_status], code_url) if code_url else "—",
+    ]
+
+
 def papers_page() -> str:
     rows = read_rows("papers.csv")
-    code_labels = {
-        "official": "Official",
-        "author-released": "Author",
-        "third-party": "Third-party",
-        "not-found": "—",
-    }
     records = []
     for row in rows:
-        code = code_labels[row["code_status"]]
+        code = CODE_LABELS[row["code_status"]]
         if row["code_url"]:
             code = link(code, row["code_url"])
         records.append(
@@ -76,9 +105,11 @@ Machine-readable source: [`data/papers.csv`](../data/papers.csv). See [CONTRIBUT
 
 def datasets_page() -> str:
     rows = read_rows("datasets.csv")
+    references = reference_map()
     records = [
         [
-            link(row["name"], row["url"]),
+            row["name"],
+            *resource_link_cells(row, references),
             row["year"],
             row["context"],
             row["data_provided"],
@@ -90,7 +121,7 @@ def datasets_page() -> str:
         for row in rows
     ]
     body = table(
-        ["Dataset", "Year", "Context", "Data", "Acquisition", "Participants", "Scale", "Tasks"],
+        ["Dataset", "Paper/source", "Project", "Code", "Year", "Context", "Data", "Acquisition", "Participants", "Scale", "Tasks"],
         records,
     )
     return f"""# Datasets
@@ -107,9 +138,11 @@ Machine-readable source: [`data/datasets.csv`](../data/datasets.csv).
 
 def benchmarks_page() -> str:
     rows = read_rows("benchmarks.csv")
+    references = reference_map()
     records = [
         [
-            link(row["name"], row["url"]),
+            row["name"],
+            *resource_link_cells(row, references),
             row["context"],
             row["type"],
             row["scenario_scope"],
@@ -120,7 +153,7 @@ def benchmarks_page() -> str:
         for row in rows
     ]
     body = table(
-        ["Resource", "Context", "Type", "Scope", "Evaluation", "Tasks", "Limitation"],
+        ["Resource", "Paper/source", "Project", "Code", "Context", "Type", "Scope", "Evaluation", "Tasks", "Limitation"],
         records,
     )
     return f"""# Benchmarks and scenario resources
@@ -137,9 +170,11 @@ Machine-readable source: [`data/benchmarks.csv`](../data/benchmarks.csv).
 
 def simulators_page() -> str:
     rows = read_rows("simulators.csv")
+    references = reference_map()
     records = [
         [
-            link(row["name"], row["url"]),
+            row["name"],
+            *resource_link_cells(row, references),
             row["category"],
             row["granularity"],
             row["availability"],
@@ -153,7 +188,7 @@ def simulators_page() -> str:
         for row in rows
     ]
     body = table(
-        ["Platform", "Category", "Granularity", "Access", "Mixed", "MPR", "V2X", "Closed loop", "Tasks", "Limitation"],
+        ["Platform", "Paper/source", "Project", "Code", "Category", "Granularity", "Access", "Mixed", "MPR", "V2X", "Closed loop", "Tasks", "Limitation"],
         records,
     )
     return f"""# Simulation and co-simulation platforms
@@ -196,15 +231,6 @@ REFERENCE_SECTION_LABELS = {
     "front-matter": "Front matter",
 }
 
-CODE_LABELS = {
-    "official": "Official",
-    "author-released": "Author",
-    "third-party": "Third-party",
-    "not-found": "Not found",
-    "not-checked": "Not checked",
-    "not-applicable": "—",
-}
-
 CODE_ROLE_ORDER = ("method-paper", "dataset", "benchmark", "simulator-tool")
 
 
@@ -216,8 +242,52 @@ def repository_label(url: str) -> str:
 
 
 def code_page() -> str:
-    rows = [row for row in read_rows("references.csv") if row["code_url"]]
+    all_rows = read_rows("references.csv")
+    rows = [row for row in all_rows if row["code_url"]]
     status_counts = Counter(row["code_status"] for row in rows)
+    unique_repositories = {row["code_url"] for row in rows}
+    role_counts = Counter(row["primary_role"] for row in rows)
+
+    method_sections = ["signalized", "non-signalized-aim", "mixed-traffic-mpr", "foundation-models", "evaluation-resources", "evaluation"]
+    method_coverage = []
+    for section in method_sections:
+        selected = [row for row in all_rows if row["primary_role"] == "method-paper" and row["primary_section"] == section]
+        if not selected:
+            continue
+        linked = sum(bool(row["code_url"]) for row in selected)
+        not_checked = sum(row["code_status"] == "not-checked" for row in selected)
+        not_found = sum(row["code_status"] == "not-found" for row in selected)
+        method_coverage.append(
+            [
+                REFERENCE_SECTION_LABELS[section],
+                str(len(selected)),
+                str(linked),
+                str(not_checked),
+                str(not_found),
+                f"{100 * linked / len(selected):.1f}%",
+            ]
+        )
+
+    core_rows = read_rows("papers.csv")
+    core_coverage = []
+    for context in ("signalized", "non-signalized", "both"):
+        selected = [row for row in core_rows if row["intersection_context"] == context]
+        linked = sum(bool(row["code_url"]) for row in selected)
+        core_coverage.append([context.title(), str(len(selected)), str(linked), f"{100 * linked / len(selected):.1f}%"])
+
+    repositories: dict[str, list[dict[str, str]]] = defaultdict(list)
+    for row in rows:
+        repositories[row["code_url"]].append(row)
+    shared = [
+        [
+            link(repository_label(url), url),
+            str(len(works)),
+            "; ".join(link(work["title"], work["paper_url"]) for work in works),
+        ]
+        for url, works in sorted(repositories.items())
+        if len(works) > 1
+    ]
+
     sections = []
     for role in CODE_ROLE_ORDER:
         selected = sorted(
@@ -228,7 +298,9 @@ def code_page() -> str:
             [
                 link(row["title"], row["paper_url"]),
                 row["year"],
+                row["venue"],
                 REFERENCE_SECTION_LABELS.get(row["primary_section"], row["primary_section"]),
+                ARTIFACT_LABELS[row["artifact_type"]],
                 link(repository_label(row["code_url"]), row["code_url"]),
                 CODE_LABELS[row["code_status"]],
             ]
@@ -236,15 +308,31 @@ def code_page() -> str:
         ]
         sections.append(
             f"## {REFERENCE_ROLE_LABELS[role]}s ({len(selected)})\n\n"
-            + table(["Paper/resource", "Year", "Primary survey topic", "Code repository", "Release"], records)
+            + table(["Paper/resource", "Year", "Venue/source", "Survey topic", "Artifact", "Code repository", "Relationship"], records)
         )
     return f"""# Code and implementation index
 
 [Back to the repository overview](../README.md) · [Complete citation catalog](references.md) · [Core comparison papers](papers.md)
 
-This page collects **{len(rows)} cited works with verified public code relationships**: **{status_counts['official']} official/project repositories**, **{status_counts['author-released']} author-released repositories**, and **{status_counts['third-party']} clearly labeled third-party reproduction**. Dataset devkits, benchmark implementations, and simulator source code are included because they are executable research artifacts tied directly to cited publications.
+This page contains **{len(rows)} code-linked works mapped to {len(unique_repositories)} distinct public repositories**: **{role_counts['method-paper']} method papers**, **{role_counts['dataset']} datasets**, **{role_counts['benchmark']} benchmarks**, and **{role_counts['simulator-tool']} simulators/tools**. The relationships comprise **{status_counts['official']} official/project releases**, **{status_counts['author-released']} author-released repositories**, and **{status_counts['third-party']} clearly labeled third-party reproduction**.
 
-`Official` means the repository identifies itself as the official implementation or is linked by the publication/project. `Author` means an author or author organization released it without an explicit official claim. `Third-party` is an independent reproduction and is never presented as author code. Each title links to the cited work; each repository name links directly to code.
+`Official/project` means the repository identifies itself as official or is linked by the publication/project. `Author-released` means an author or author organization released it without an explicit official claim. `Third-party` is an independent reproduction and is never presented as author code. Public source availability is only a minimum **R1 artifact level**; it does not by itself guarantee that an environment is pinned, results reproduce, or the software is maintained.
+
+## Code-coverage transparency
+
+### Method papers by primary survey topic
+
+{table(["Primary topic", "Method papers", "With code", "Not checked", "Not found", "Coverage"], method_coverage)}
+
+### Core comparison papers by intersection context
+
+{table(["Context", "Core papers", "With code", "Coverage"], core_coverage)}
+
+## Shared repositories
+
+The difference between code-linked works and distinct repositories is intentional: some artifacts support multiple cited publications or resources.
+
+{table(["Repository", "Linked works", "Publications/resources"], shared)}
 
 {"\n\n".join(sections)}
 
@@ -265,11 +353,12 @@ def references_table(rows: list[dict[str, str]]) -> str:
             row["venue"],
             REFERENCE_ROLE_LABELS[row["primary_role"]],
             ", ".join(REFERENCE_SECTION_LABELS.get(value, value) for value in row["survey_sections"].split("; ")),
+            link("Project", row["project_url"]) if row["project_url"] else "—",
             reference_code_cell(row),
         ]
         for row in rows
     ]
-    return table(["Reference", "Year", "Venue/source", "Role", "Survey sections", "Code"], records)
+    return table(["Reference", "Year", "Venue/source", "Role", "Survey sections", "Project", "Code"], records)
 
 
 def references_overview_page() -> str:
@@ -296,6 +385,28 @@ def references_overview_page() -> str:
         navigation.append([link(label, path), str(count)])
     direct = sum(row["link_type"] != "scholar-search" for row in rows)
     code_count = sum(bool(row["code_url"]) for row in rows)
+    unique_code_count = len({row["code_url"] for row in rows if row["code_url"]})
+    resource_roles = {"dataset", "benchmark", "simulator-tool"}
+    periods = [
+        ("Before 2000", lambda year: year < 2000),
+        ("2000–2009", lambda year: 2000 <= year <= 2009),
+        ("2010–2014", lambda year: 2010 <= year <= 2014),
+        ("2015–2019", lambda year: 2015 <= year <= 2019),
+        ("2020–2022", lambda year: 2020 <= year <= 2022),
+        ("2023–2026", lambda year: 2023 <= year <= 2026),
+    ]
+    timeline_rows = []
+    for label, includes in periods:
+        selected = [row for row in rows if row["year"].isdigit() and includes(int(row["year"]))]
+        timeline_rows.append(
+            [
+                label,
+                str(len(selected)),
+                str(sum(row["primary_role"] == "method-paper" for row in selected)),
+                str(sum(row["primary_role"] in resource_roles for row in selected)),
+                str(sum(bool(row["code_url"]) for row in selected)),
+            ]
+        )
     return f"""# Complete citation catalog
 
 [Back to the repository overview](../README.md) · [Code and implementation index](code.md) · [Core comparison papers](papers.md)
@@ -312,11 +423,15 @@ References may appear on more than one topic page when the manuscript cites them
 
 {table(["Primary role", "References"], role_rows)}
 
+## Publication timeline
+
+{table(["Period", "All works", "Method papers", "Datasets/benchmarks/tools", "Code-linked works"], timeline_rows)}
+
 ## Link and code status
 
 - **{direct}/{len(rows)} work links** are direct links; no generic search-result fallbacks are used.
 - **{sum(row['core_paper'] == 'yes' for row in rows)} core papers** retain manually verified implementation status.
-- **{code_count} cited works** have a verified implementation, devkit, benchmark, or simulator repository.
+- **{code_count} cited works** map to **{unique_code_count} distinct repositories** with a verified implementation, devkit, benchmark, or simulator relationship.
 - `Not checked` means implementation discovery has not yet been completed for that non-core paper; it is not a claim that code is unavailable.
 
 Machine-readable source: [`data/references.csv`](../data/references.csv).
@@ -334,7 +449,7 @@ def references_section_page(title: str, section: str, intro: str) -> str:
 
 [Complete citation catalog](../references.md) · [Repository overview](../../README.md)
 
-{intro} This page contains **{len(selected)}** distinct cited works; titles link to the paper or primary source.
+{intro} This page contains **{len(selected)}** distinct cited works. Titles link to the publication or primary source; project and code links are shown separately when available.
 
 {references_table(selected)}
 

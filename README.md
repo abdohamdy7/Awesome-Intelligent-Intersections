@@ -3,7 +3,8 @@
 <p align="center">
   <a href="docs/references.md"><img alt="Cited works" src="https://img.shields.io/badge/cited_works-261-22577A"></a>
   <a href="docs/papers.md"><img alt="Core papers" src="https://img.shields.io/badge/core_papers-46-6C63FF"></a>
-  <a href="docs/code.md"><img alt="Code repositories" src="https://img.shields.io/badge/code_repositories-74-3A7D44"></a>
+  <a href="docs/code.md"><img alt="Code-linked works" src="https://img.shields.io/badge/code_linked_works-73-3A7D44"></a>
+  <a href="docs/code.md"><img alt="Unique code repositories" src="https://img.shields.io/badge/unique_code_repositories-69-2D6A4F"></a>
   <a href="docs/datasets.md"><img alt="Datasets" src="https://img.shields.io/badge/datasets-44-2A9D8F"></a>
   <a href="docs/benchmarks.md"><img alt="Benchmarks" src="https://img.shields.io/badge/benchmarks-13-E9C46A"></a>
   <a href="docs/simulators.md"><img alt="Simulators" src="https://img.shields.io/badge/simulators-19-F4A261"></a>
@@ -29,7 +30,7 @@ The collection covers signalized, non-signalized, hybrid signal-CAV, and signal-
 | Topic | What it contains |
 |---|---|
 | [Complete citation catalog](docs/references.md) | All 261 distinct works represented by 266 active citation keys, categorized by role and survey section with source links |
-| [Code and implementation index](docs/code.md) | 74 cited works with verified official, author-released, or clearly labeled third-party code links |
+| [Code and implementation index](docs/code.md) | 73 code-linked works mapped to 69 distinct repositories, separated into methods, datasets, benchmarks, and tools |
 | [Core comparison papers](docs/papers.md) | 46 deeply coded papers with operating context, traffic composition, method family, evidence level, and verified code status |
 | [Signalized intersections](docs/signalized-intersections.md) | Signal timing, estimation, signal-trajectory coordination, learning, multimodal and priority-aware control |
 | [Non-signalized intersections and AIM](docs/non-signalized-and-aim.md) | Gap acceptance, reservation AIM, distributed control, mixed traffic, negotiation, learning |
@@ -52,9 +53,17 @@ Every included study can be described across three coupled dimensions instead of
 
 This representation prevents a full-CAV simulation result from being interpreted as evidence for low-penetration mixed traffic or public-road deployment.
 
+## Recent updates
+
+- **2026-08-27 — Link-integrity and provenance audit:** separated publication, project, and code links; removed one dead repository from the verified count; and added artifact and verification fields.
+- **2026-08-27 — Implementation expansion:** increased verified code coverage across methods, datasets, benchmarks, and simulators.
+- **2026-08-27 — Complete manuscript catalog:** synchronized all 261 distinct cited works represented by 266 active citation keys.
+
+See the [changelog](CHANGELOG.md) for details.
+
 ## Implementation-aware paper records
 
-The [full code and implementation index](docs/code.md) now contains **74 cited works with verified repositories**, grouped into method papers, datasets, benchmarks, and simulation tools. Code links are checked against the paper, author, laboratory, project page, or repository README. A dash in the complete catalog means that no public implementation was located as of the record's `last_verified` date; it does **not** prove that code does not exist.
+The [full code and implementation index](docs/code.md) contains **73 code-linked works mapped to 69 distinct public repositories**, grouped into method papers, datasets, benchmarks, and simulation tools. Of these, **17 are method-paper implementations** and **56 are executable research resources**. Code links are checked against the publication, author, laboratory, project page, or repository README. A dash in the complete catalog means that no public implementation was located as of the record's `last_verified` date; it does **not** prove that code does not exist.
 
 | Paper | Context | Method | Code |
 |---|---|---|---|
@@ -76,7 +85,8 @@ The repository distinguishes complete citation coverage from the smaller, deeply
 
 - **261** distinct cited works represented by **266** active citation keys, with duplicate BibTeX aliases consolidated and retained;
 - **46** core comparison papers across signalized, non-signalized/AIM, mixed-traffic, and foundation-model-assisted methods;
-- **74** cited works with verified code links: 63 official/project, 10 author-released, and 1 clearly labeled third-party repository;
+- **73** code-linked cited works mapped to **69 distinct repositories**: 62 official/project, 10 author-released, and 1 clearly labeled third-party relationship;
+- **17/90 method papers** have verified public implementations; resource repositories are reported separately so they are not mistaken for algorithm implementations;
 - **44** operational, trajectory, interaction, motion-planning, and cooperative-perception datasets;
 - **13** formal benchmarks and benchmark-supporting scenario resources;
 - **19** traffic, automated-driving, V2X, and multidomain simulation platforms;
