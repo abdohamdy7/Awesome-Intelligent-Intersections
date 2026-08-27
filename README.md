@@ -100,4 +100,4 @@ The survey citation will be updated after a preprint or DOI becomes available. U
 
 ## License
 
-A public-use license has not yet been assigned. The authors should select a license before the public release; third-party papers, software, datasets, and trademarks remain subject to their respective licenses and terms.
+Repository software and original documentation are released under the [MIT License](LICENSE). Survey figures retain the manuscript notice in [`assets/figures/README.md`](assets/figures/README.md). Third-party papers, software, datasets, and trademarks remain subject to their respective licenses and terms.

@@ -16,6 +16,7 @@ authors:
   - family-names: Khonji
     given-names: Majid
 repository-code: "https://github.com/abdohamdy7/Awesome-Intelligent-Intersections"
+license: MIT
 abstract: "A taxonomy-driven collection supporting a survey of ITS-enabled intelligent-intersection planning and control with connected automated vehicles and mixed traffic."
 keywords:
   - intelligent intersections
